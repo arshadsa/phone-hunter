@@ -15,7 +15,7 @@ const searchPhone = () => {
     fetch(url)
     .then(res => res.json())
     .then(data => displaySearchResults(data.data))
-    // .catch(error => displayError(error));
+    .catch(error => displayError(error));
   }
 }
 
