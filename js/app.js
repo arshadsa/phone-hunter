@@ -24,13 +24,15 @@ const displayError = error => {
 }
 
 const displaySearchResults = phones => {
+  if(phones.length >= 20){
+    phones = phones.slice(0, 20);
+  }
   const searchResult = document.getElementById('search-result');
   searchResult.textContent = '';
   
   if (phones.length == 0) {
     // show no result found;
   }
-
   phones.forEach(phone => {
     const div = document.createElement('div');
     div.classList.add('col');
@@ -64,7 +66,7 @@ const displayPhoneDetail = phone => {
   <img src="${phone.image}" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">${phone.name}</h5>
-    ${phone.releaseDate? `<p>Release Date: ${phone.releaseDate}`:'No release date found! <br>'}
+    ${phone.releaseDate? `<p>Release Date: ${phone.releaseDate}<br>`:'No release date found! <br>'}
     ${phone.mainFeatures? `<strong>Features:</strong> <br> ${displayFeatures(phone.mainFeatures)}`:''}
     ${phone.others? `<strong>Others:</strong> <br> ${displayFeatures(phone.others)}`:''}
   </div>
