@@ -79,10 +79,14 @@ const displayFeatures = features => {
 
   for (const [key, value] of Object.entries(features)) {
     if(key === 'sensors')
-    { items = items + `<strong>${key}:</strong> ${value.join(', ')}.<br>`
+    { items = items + `<strong>${capitalizeFirstLetter(key)}:</strong> ${value.join(', ')}.<br>`
     }else{
-      items = items + `<strong>${key}:</strong> ${value}<br>`;
+      items = items + `<strong>${capitalizeFirstLetter(key)}:</strong> ${value}<br>`;
     }
   }
   return items;
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
