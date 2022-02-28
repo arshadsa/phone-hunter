@@ -64,8 +64,25 @@ const displayPhoneDetail = phone => {
   <img src="${phone.image}" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">${phone.name}</h5>
+    ${phone.releaseDate? `<p>Release Date: ${phone.releaseDate}`:'No release date found! <br>'}
+    ${phone.mainFeatures? `<strong>Features:</strong> <br> ${displayFeatures(phone.mainFeatures)}`:''}
+    ${phone.others? `<strong>Others:</strong> <br> ${displayFeatures(phone.others)}`:''}
   </div>
 </div>
   `;
   phoneDetail.appendChild(div);
+}
+
+const displayFeatures = features => {
+  
+  let items = '';
+
+  for (const [key, value] of Object.entries(features)) {
+    if(key === 'sensors')
+    { items = items + `<strong>${key}:</strong> ${value.join(', ')}.<br>`
+    }else{
+      items = items + `<strong>${key}:</strong> ${value}<br>`;
+    }
+  }
+  return items;
 }
