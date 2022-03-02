@@ -134,6 +134,6 @@ const displayFeatures = features => {
 }
 
 // First Letter Capitalize Function
-function capitalizeFirstLetter(string) {
+capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
