@@ -1,6 +1,8 @@
 document.getElementById('error-message').style.display = 'none';
 document.getElementById('phone-details-message').style.display = 'none';
 document.getElementById('search-result-message').style.display = 'none';
+document.getElementById('show-more').style.display = 'none';
+
 
 // Clear results
 const clearResults = () => {
@@ -10,15 +12,26 @@ const clearResults = () => {
 }
 
 // Phone Search Function
-const searchPhone = () => {  
+const searchPhone = (showall = false, text = '') => {  
   clearResults();
   const searchField = document.getElementById('search-field');
-  const searchText = searchField.value;
+  let searchText = searchField.value;
+  document.getElementById('search-term').innerText = searchText;
+  if (text !== '')
+  {
+    document.getElementById('search-term').innerText = text;
+  }
   // clear data
   searchField.value = '';
+  if(searchText == '' && text !== '')
+  {
+    searchText = text;
+  }
+
   document.getElementById('error-message').style.display = 'none';
   document.getElementById('phone-details-message').style.display = 'none';
   document.getElementById('search-result-message').style.display = 'none';
+  document.getElementById('show-more').style.display = 'none';
   if (searchText == ''){
     
   }
@@ -27,7 +40,7 @@ const searchPhone = () => {
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
     fetch(url)
     .then(res => res.json())
-    .then(data => displaySearchResults(data.data))
+    .then(data => displaySearchResults(data.data, showall))
     .catch(error => displayError(error));
   }
 }
@@ -37,10 +50,17 @@ const displayError = error => {
   document.getElementById('error-message').style.display = 'block';
 }
 
+// Show all
+const showAll = () => {
+  searchText = document.getElementById('search-term').innerText;
+  searchPhone(true, searchText);  
+}
+
 // Search Result Display Function
-const displaySearchResults = phones => {
-  if(phones.length >= 20){
+const displaySearchResults = (phones, showall) => {
+  if(phones.length >= 20 && showall === false){
     phones = phones.slice(0, 20);
+    document.getElementById('show-more').style.display = 'block';
   } else if (phones.length === 0) {
     document.getElementById('error-message').style.display = 'block';
     document.getElementById('error-message').innerText = 'No phone found!';
