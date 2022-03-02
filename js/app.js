@@ -1,9 +1,12 @@
 document.getElementById('error-message').style.display = 'none';
+document.getElementById('phone-details-message').style.display = 'none';
+document.getElementById('search-result-message').style.display = 'none';
 
 // Clear results
 const clearResults = () => {
   document.getElementById('search-result').innerText='';
   document.getElementById('phone-details').innerText='';
+  
 }
 
 // Phone Search Function
@@ -14,6 +17,8 @@ const searchPhone = () => {
   // clear data
   searchField.value = '';
   document.getElementById('error-message').style.display = 'none';
+  document.getElementById('phone-details-message').style.display = 'none';
+  document.getElementById('search-result-message').style.display = 'none';
   if (searchText == ''){
     
   }
@@ -51,7 +56,7 @@ const displaySearchResults = phones => {
     const div = document.createElement('div');
     div.classList.add('col');
     div.innerHTML = `
-    <div class="card" style="width: 18rem;">
+    <div class="card">
       <img src="${phone.image}" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">${phone.phone_name}</h5>
@@ -62,6 +67,7 @@ const displaySearchResults = phones => {
     `;
     searchResult.appendChild(div);
   });
+  document.getElementById('search-result-message').style.display = 'block';
 }
 
 // Phone Detail Load Function
@@ -78,7 +84,7 @@ const displayPhoneDetail = phone => {
   phoneDetail.innerText = '';
   const div = document.createElement('div');
   div.innerHTML = `
-  <div class="card mx-auto my-4" style="width: 18rem;">
+  <div class="card mx-auto my-4">
   <img src="${phone.image}" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">${phone.name}</h5>
@@ -89,6 +95,7 @@ const displayPhoneDetail = phone => {
 </div>
   `;
   phoneDetail.appendChild(div);
+  document.getElementById('phone-details-message').style.display = 'block';
 }
 
 // Feature display Function
